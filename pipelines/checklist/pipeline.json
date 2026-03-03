@@ -1,0 +1,9 @@
+{
+  "name": "checklist",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Generate a custom checklist for the current feature based on user requirements.",
+  "commands": ["collab.checklist.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

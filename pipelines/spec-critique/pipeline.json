@@ -1,0 +1,9 @@
+{
+  "name": "spec-critique",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Adversarial specification analysis to find gaps and ambiguities before implementation.",
+  "commands": ["collab.spec-critique.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

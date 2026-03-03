@@ -1,0 +1,9 @@
+{
+  "name": "analyze",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Perform cross-artifact consistency and quality analysis across spec, plan, and tasks.",
+  "commands": ["collab.analyze.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

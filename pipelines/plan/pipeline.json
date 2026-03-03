@@ -1,0 +1,9 @@
+{
+  "name": "plan",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Execute the implementation planning workflow to generate design artifacts.",
+  "commands": ["collab.plan.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

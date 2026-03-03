@@ -1,0 +1,12 @@
+{
+  "name": "ios",
+  "version": "1.0.0",
+  "type": "pack",
+  "description": "iOS development workflow: build and verify on simulator.",
+  "pipelines": [
+    "ios-build",
+    "ios-verify"
+  ],
+  "commands": [],
+  "clis": { "bun": ">=1.0.0" }
+}

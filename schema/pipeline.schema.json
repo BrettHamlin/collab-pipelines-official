@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/BrettHamlin/collab-pipelines-official/main/schema/pipeline.schema.json",
+  "title": "Pipeline Manifest",
+  "description": "Schema for collab pipeline.json manifests",
+  "type": "object",
+  "required": ["name", "version", "type", "description", "commands", "pipelines", "clis"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Pipeline name (lowercase, hyphens allowed)"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version (X.Y.Z)"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["pipeline", "pack"],
+      "description": "Manifest type"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable description"
+    },
+    "commands": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of command filenames included in this pipeline"
+    },
+    "pipelines": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Pipeline dependencies as name->version-range map"
+        },
+        {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Pipeline list (for packs)"
+        }
+      ]
+    },
+    "clis": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Required CLI tools as name->version-range map"
+    }
+  }
+}

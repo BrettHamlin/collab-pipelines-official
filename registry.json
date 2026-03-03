@@ -1,0 +1,33 @@
+{
+  "version": "1",
+  "updated": "2026-03-03",
+  "packs": [
+    {
+      "name": "specfactory",
+      "version": "1.0.0",
+      "sha256": "",
+      "description": "Complete specfactory workflow: clarify, specify, plan, tasks, analyze, implement, blindqa, spec-critique, checklist, code-review, tasks-to-issues."
+    },
+    {
+      "name": "ios",
+      "version": "1.0.0",
+      "sha256": "",
+      "description": "iOS development workflow: build and verify on simulator."
+    }
+  ],
+  "pipelines": [
+    { "name": "clarify", "version": "1.0.0", "sha256": "", "description": "Orchestrator-compatible spec clarification using structured question emission." },
+    { "name": "specify", "version": "1.0.0", "sha256": "", "description": "Create or update the feature specification from a natural language description." },
+    { "name": "plan", "version": "1.0.0", "sha256": "", "description": "Execute the implementation planning workflow to generate design artifacts." },
+    { "name": "tasks", "version": "1.0.0", "sha256": "", "description": "Generate an actionable, dependency-ordered tasks.md from design artifacts." },
+    { "name": "analyze", "version": "1.0.0", "sha256": "", "description": "Perform cross-artifact consistency and quality analysis across spec, plan, and tasks." },
+    { "name": "implement", "version": "1.0.0", "sha256": "", "description": "Execute the implementation plan by processing all tasks defined in tasks.md." },
+    { "name": "blindqa", "version": "1.0.0", "sha256": "", "description": "Blind QA verification against the spec with deterministic signal emission." },
+    { "name": "spec-critique", "version": "1.0.0", "sha256": "", "description": "Adversarial specification analysis to find gaps and ambiguities before implementation." },
+    { "name": "checklist", "version": "1.0.0", "sha256": "", "description": "Generate a custom checklist for the current feature based on user requirements." },
+    { "name": "code-review", "version": "1.0.0", "sha256": "", "description": "Structured code review against spec and implementation standards." },
+    { "name": "tasks-to-issues", "version": "1.0.0", "sha256": "", "description": "Convert tasks.md into actionable, dependency-ordered GitHub issues." },
+    { "name": "ios-build", "version": "1.0.0", "sha256": "", "description": "Compile and install the iOS app on simulator, emit BUILD_COMPLETE or BUILD_FAILED signal." },
+    { "name": "ios-verify", "version": "1.0.0", "sha256": "", "description": "Navigate iOS simulator to verify spec criteria, emit VERIFY_PASS/FAIL/BLOCKED/QUESTION signal." }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ios-build",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Compile and install the iOS app on simulator, emit BUILD_COMPLETE or BUILD_FAILED signal.",
+  "commands": ["collab.iosbuild.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

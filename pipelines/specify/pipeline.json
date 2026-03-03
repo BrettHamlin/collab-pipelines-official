@@ -1,0 +1,9 @@
+{
+  "name": "specify",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Create or update the feature specification from a natural language description.",
+  "commands": ["collab.specify.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

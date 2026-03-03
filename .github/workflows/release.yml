@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create release with tarballs and checksums
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Create pipeline tarballs and compute SHA-256
+        run: |
+          mkdir -p dist
+
+          # Pack tarballs
+          for dir in packs/*/; do
+            NAME=$(basename "$dir")
+            TARBALL="dist/pack-${NAME}-${{ steps.version.outputs.version }}.tar.gz"
+            tar -czf "$TARBALL" -C packs "$NAME"
+            SHA=$(sha256sum "$TARBALL" | cut -d' ' -f1)
+            echo "${SHA}  ${TARBALL}" >> dist/checksums.txt
+            # Update registry.json sha256 for this pack
+            jq --arg n "$NAME" --arg s "$SHA" \
+              '(.packs[] | select(.name == $n) | .sha256) = $s' \
+              registry.json > registry.json.tmp && mv registry.json.tmp registry.json
+          done
+
+          # Pipeline tarballs
+          for dir in pipelines/*/; do
+            NAME=$(basename "$dir")
+            TARBALL="dist/pipeline-${NAME}-${{ steps.version.outputs.version }}.tar.gz"
+            tar -czf "$TARBALL" -C pipelines "$NAME"
+            SHA=$(sha256sum "$TARBALL" | cut -d' ' -f1)
+            echo "${SHA}  ${TARBALL}" >> dist/checksums.txt
+            # Update registry.json sha256 for this pipeline
+            jq --arg n "$NAME" --arg s "$SHA" \
+              '(.pipelines[] | select(.name == $n) | .sha256) = $s' \
+              registry.json > registry.json.tmp && mv registry.json.tmp registry.json
+          done
+
+          # Update version and date in registry.json
+          VERSION="${{ steps.version.outputs.version }}"
+          DATE=$(date -u +%Y-%m-%d)
+          jq --arg v "$VERSION" --arg d "$DATE" '.version = $v | .updated = $d' \
+            registry.json > registry.json.tmp && mv registry.json.tmp registry.json
+
+          cat dist/checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Release ${{ github.ref_name }}"
+          body: |
+            ## collab-pipelines-official ${{ github.ref_name }}
+
+            ### Pipelines
+            $(jq -r '.pipelines[] | "- **\(.name)** v\(.version) — \(.description)"' registry.json)
+
+            ### Packs
+            $(jq -r '.packs[] | "- **\(.name)** v\(.version) — \(.description)"' registry.json)
+
+            ### Installation
+            ```bash
+            /pipelines install specfactory
+            ```
+          files: |
+            registry.json
+            dist/*.tar.gz
+            dist/checksums.txt

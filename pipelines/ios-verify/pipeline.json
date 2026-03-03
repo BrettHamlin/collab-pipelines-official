@@ -1,0 +1,9 @@
+{
+  "name": "ios-verify",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Navigate iOS simulator to verify spec criteria, emit VERIFY_PASS/FAIL/BLOCKED/QUESTION signal.",
+  "commands": ["collab.iosverify.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

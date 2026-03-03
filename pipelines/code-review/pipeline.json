@@ -1,0 +1,9 @@
+{
+  "name": "code-review",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Structured code review against spec and implementation standards.",
+  "commands": ["collab.codeReview.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0", "git": ">=2.0.0" }
+}

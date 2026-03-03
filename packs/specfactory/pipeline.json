@@ -1,0 +1,21 @@
+{
+  "name": "specfactory",
+  "version": "1.0.0",
+  "type": "pack",
+  "description": "Complete specfactory workflow: clarify, specify, plan, tasks, analyze, implement, blindqa, spec-critique, checklist, code-review, tasks-to-issues.",
+  "pipelines": [
+    "clarify",
+    "specify",
+    "plan",
+    "tasks",
+    "analyze",
+    "implement",
+    "blindqa",
+    "spec-critique",
+    "checklist",
+    "code-review",
+    "tasks-to-issues"
+  ],
+  "commands": [],
+  "clis": { "bun": ">=1.0.0", "git": ">=2.0.0", "gh": ">=2.0.0", "jq": ">=1.6" }
+}

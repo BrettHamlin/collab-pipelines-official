@@ -1,0 +1,9 @@
+{
+  "name": "blindqa",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Blind QA verification against the spec with deterministic signal emission.",
+  "commands": ["collab.blindqa.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

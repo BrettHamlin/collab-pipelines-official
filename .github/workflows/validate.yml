@@ -1,0 +1,77 @@
+name: Validate Pipelines
+
+on:
+  pull_request:
+    paths:
+      - 'pipelines/**'
+      - 'packs/**'
+      - 'registry.json'
+      - 'schema/**'
+
+jobs:
+  validate:
+    name: Validate pipeline manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun add -d ajv-cli ajv
+
+      - name: Validate all pipeline.json against schema
+        run: |
+          SCHEMA="schema/pipeline.schema.json"
+          FAILED=0
+          for manifest in pipelines/*/pipeline.json packs/*/pipeline.json; do
+            echo "Validating $manifest..."
+            if ! bunx ajv validate -s "$SCHEMA" -d "$manifest" 2>&1; then
+              echo "FAIL: $manifest"
+              FAILED=1
+            fi
+          done
+          [ $FAILED -eq 0 ] || exit 1
+
+      - name: Verify command files exist
+        run: |
+          FAILED=0
+          for manifest in pipelines/*/pipeline.json; do
+            DIR=$(dirname "$manifest")
+            PIPELINE=$(basename "$DIR")
+            # Read commands array from manifest
+            COMMANDS=$(jq -r '.commands[]' "$manifest" 2>/dev/null || true)
+            for cmd in $COMMANDS; do
+              if [ ! -f "$DIR/commands/$cmd" ]; then
+                echo "MISSING: $DIR/commands/$cmd (declared in $manifest)"
+                FAILED=1
+              fi
+            done
+          done
+          [ $FAILED -eq 0 ] || exit 1
+
+      - name: Check registry consistency
+        run: |
+          FAILED=0
+          # Every pipeline directory must have a registry entry
+          for dir in pipelines/*/; do
+            NAME=$(basename "$dir")
+            if ! jq -e --arg n "$NAME" '.pipelines[] | select(.name == $n)' registry.json > /dev/null 2>&1; then
+              echo "MISSING registry entry for pipeline: $NAME"
+              FAILED=1
+            fi
+          done
+          # Every registry entry must have a directory
+          for name in $(jq -r '.pipelines[].name' registry.json); do
+            if [ ! -d "pipelines/$name" ]; then
+              echo "GHOST registry entry (no directory): pipelines/$name"
+              FAILED=1
+            fi
+          done
+          [ $FAILED -eq 0 ] || exit 1
+
+      - name: Run Bun tests
+        run: bun test tests/

@@ -1,0 +1,9 @@
+{
+  "name": "tasks-to-issues",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Convert tasks.md into actionable, dependency-ordered GitHub issues.",
+  "commands": ["collab.taskstoissues.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0", "gh": ">=2.0.0" }
+}

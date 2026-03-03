@@ -1,0 +1,9 @@
+{
+  "name": "tasks",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Generate an actionable, dependency-ordered tasks.md from design artifacts.",
+  "commands": ["collab.tasks.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}

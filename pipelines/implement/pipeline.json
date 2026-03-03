@@ -1,0 +1,9 @@
+{
+  "name": "implement",
+  "version": "1.0.0",
+  "type": "pipeline",
+  "description": "Execute the implementation plan by processing all tasks defined in tasks.md.",
+  "commands": ["collab.implement.md"],
+  "pipelines": {},
+  "clis": { "bun": ">=1.0.0" }
+}
