@@ -1,9 +1,0 @@
-{
-  "name": "clarify",
-  "version": "1.0.0",
-  "type": "pipeline",
-  "description": "Orchestrator-compatible spec clarification using structured question emission.",
-  "commands": ["collab.clarify.md"],
-  "pipelines": {},
-  "clis": { "bun": ">=1.0.0" }
-}

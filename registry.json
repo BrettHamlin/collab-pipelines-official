@@ -16,7 +16,6 @@
     }
   ],
   "pipelines": [
-    { "name": "clarify", "version": "1.0.0", "sha256": "", "description": "Orchestrator-compatible spec clarification using structured question emission." },
     { "name": "specify", "version": "1.0.0", "sha256": "", "description": "Create or update the feature specification from a natural language description." },
     { "name": "plan", "version": "1.0.0", "sha256": "", "description": "Execute the implementation planning workflow to generate design artifacts." },
     { "name": "tasks", "version": "1.0.0", "sha256": "", "description": "Generate an actionable, dependency-ordered tasks.md from design artifacts." },

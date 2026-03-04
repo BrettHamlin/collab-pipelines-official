@@ -2,9 +2,8 @@
   "name": "specfactory",
   "version": "1.0.0",
   "type": "pack",
-  "description": "Complete specfactory workflow: clarify, specify, plan, tasks, analyze, implement, blindqa, spec-critique, checklist, code-review, tasks-to-issues.",
+  "description": "Complete specfactory workflow: specify, plan, tasks, analyze, implement, blindqa, spec-critique, checklist, code-review, tasks-to-issues. (clarify is a core command shipped with collab install.)",
   "pipelines": [
-    "clarify",
     "specify",
     "plan",
     "tasks",
